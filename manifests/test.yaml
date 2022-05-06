@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: xxx
+  labels:
+    app: hello
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hello
+  template:
+    metadata:
+      labels:
+        app: hello
+    spec:
+      containers:
+      - name: webhook
+        command:
+        - /usr/local/bin/zwf
+        image: hub.agoralab.co/devops-public/demeter:test1
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 9999
+        #volumeMounts:
+        #- name: hello-tls-secret
+        #  mountPath: "/tls"
+        #  readOnly: true        
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"           
+       #volumes:
+       #- name: hello-tls-secret
+       #  secret:
+       #    secretName: hello-tls-secret
