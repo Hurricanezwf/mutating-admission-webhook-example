@@ -9,6 +9,7 @@
 step1: 在本地准备 kind 配置文件 kind-config.yaml:
 
 ```yaml
+cat <<EOF >kind-config.yaml
 kind: Cluster
 apiVersion: kind.x-k8s.io/v1alpha4
 kubeadmConfigPatches:
@@ -17,6 +18,7 @@ kubeadmConfigPatches:
   apiServer:
       extraArgs:
         enable-admission-plugins: NodeRestriction,MutatingAdmissionWebhook,ValidatingAdmissionWebhook
+EOF
 ```
 
 step2: 使用 kind 创建 kubernetes
