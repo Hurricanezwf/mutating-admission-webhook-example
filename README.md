@@ -4,6 +4,8 @@
 
 # 环境准备
 
+## kubernetes 集群准备
+
 推荐使用 kind
 
 step1: 在本地准备 kind 配置文件 kind-config.yaml:
@@ -26,6 +28,22 @@ step2: 使用 kind 创建 kubernetes
 ```bash
 kind create cluster --name=k121 --image kindest/node:v1.21.10 --kubeconfig=$HOME/.kube/config.k121 --config=kind-config.yaml
 ```
+
+## 编译 webhook 服务程序, 上传至镜像仓库.
+
+step1: 编译
+
+```bash
+go build
+```
+
+step2: 打包上传
+
+```
+docker build -f dockerfile -t ${YOUR IMAGE}:${YOUR IMAGE TAG}
+docker push ${YOUR IMAGE}:${YOUR IMAGE TAG}
+```
+
 
 
 # 快速上手

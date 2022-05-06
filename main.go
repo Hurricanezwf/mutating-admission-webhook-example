@@ -20,7 +20,6 @@ import (
 	"net/http"
 
 	admissionv1beta1 "k8s.io/api/admission/v1"
-	//admissionv1beta1 "k8s.io/api/admission/v1beta1"
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
@@ -73,6 +72,7 @@ func HandleMutate(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// build json patch
+	// Notice: 这里 patch label 的时候，如果内容中期望包含 '/', 需要手动将其编码为 `~1`, 参见: https://stackoverflow.com/questions/65887327/patch-kubernetes-label-with-character
 	patch := []JSONPatchEntry{
 		JSONPatchEntry{
 			OP:    "replace",
